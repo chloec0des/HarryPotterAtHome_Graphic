@@ -7,7 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.Random;
@@ -18,15 +21,33 @@ public class WizardInitGUI {
         VBox root = new VBox(10);
         root.setAlignment(Pos.CENTER);
 
+        try {
+            Image background = new Image(getClass().getResource("/initPet.png").toExternalForm());
+            BackgroundImage backgroundImage = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(500, 500, false, false, false, true));
+            root.setBackground(new Background(backgroundImage));
+        } catch (NullPointerException e) {
+            System.err.println("Background image not found.");
+        }
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setColor(Color.BLACK);
+        dropShadow.setOffsetX(2);
+        dropShadow.setOffsetY(2);
+
         Label initLabel = new Label("Initializing wizard...");
+        initLabel.setEffect(dropShadow);
+        initLabel.setTextFill(Color.WHITE);
         Label petLabel = new Label("Choose your pet:");
+        petLabel.setEffect(dropShadow);
+        petLabel.setTextFill(Color.WHITE);
         ComboBox<Pet> petComboBox = new ComboBox<>();
         petComboBox.getItems().addAll(Pet.values());
         Button initButton = new Button("Initialize Wizard");
+        initButton.setEffect(dropShadow);
+        initButton.setTextFill(Color.GREEN);
 
         root.getChildren().addAll(initLabel, petLabel, petComboBox, initButton);
 
-        Scene scene = new Scene(root, 400, 200);
+        Scene scene = new Scene(root, 800, 500);
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -41,6 +62,8 @@ public class WizardInitGUI {
             } else {
                 // Show an error message if the user hasn't selected a pet
                 Label errorLabel = new Label("Please choose a pet!");
+                errorLabel.setEffect(dropShadow);
+                errorLabel.setTextFill(Color.WHITE);
                 root.getChildren().add(errorLabel);
             }
         });

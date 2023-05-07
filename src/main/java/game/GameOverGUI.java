@@ -28,7 +28,7 @@ public class GameOverGUI {
 
         root.getChildren().addAll(gameOverLabel, restartButton, quitGameButton);
 
-        Scene scene = new Scene(root, 300, 100);
+        Scene scene = new Scene(root, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
